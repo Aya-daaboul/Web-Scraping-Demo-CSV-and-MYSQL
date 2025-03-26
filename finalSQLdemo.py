@@ -38,10 +38,9 @@ def store(title, content):
     cur.connection.commit()
 
 # Function to fetch links from a given Wikipedia article URL
-def getLinks(articleUrl):
+def getContent(articleUrl):
     """
-    Retrieves the title and first paragraph content from a Wikipedia article
-    and stores it in the database.
+    Retrieves the title and other info based on what i specify.
 
     Parameters:
         articleUrl (str): The URL of the Wikipedia article (relative path).
@@ -55,9 +54,18 @@ def getLinks(articleUrl):
     # Extract the title of the article (from the <h1> tag)
     title = bs.find('h1').get_text()
 
-    # Extract the first paragraph content from the article
+    # Extract the content
     # The content is inside a <div> with id="mw-content-text", and we get the first <p> tag inside it
-    content = bs.find('div', {'id': 'mw-content-text'}).find('p').get_text()
+
+    # content = bs.find('div', {'id': 'mw-content-text'}).find('p').get_text()
+
+    #content = ' '.join([div.get_text() for div in bs.find_all('div', {'class': 'hatnote navigation-not-searchable'})])
+
+    content = bs.find('div', {'class': 'shortdescription nomobile noexcerpt noprint searchaux'}).get_text()
+    
+    if content is None:
+        print("No content found")
+    
 
     # Store the extracted data into the database
     store(title, content)
@@ -71,8 +79,11 @@ def main():
     # Starting Wikipedia page (example: Python programming language)
     start_url = "/wiki/Python_(programming_language)"
     
+
+    #start_url ="/wiki/Pizza" #404 error if pizza only
+
     print(f"Scraping: {start_url}")  # Log the scraping process
-    getLinks(start_url)  # Fetch and store data from Wikipedia
+    getContent(start_url)  # Fetch and store data from Wikipedia
 
     # Close database connection
     cur.close()
