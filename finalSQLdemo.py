@@ -1,8 +1,6 @@
 # Import required libraries
 from urllib.request import urlopen  # Used to open URLs and fetch data from web pages
 from bs4 import BeautifulSoup  # Used for parsing and extracting data from HTML
-import datetime  # Used to get the current date and time
-import random  # Used to generate random values (not directly used in this script)
 import pymysql  # Used for connecting and interacting with a MySQL database
 
 

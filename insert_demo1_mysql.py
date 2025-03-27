@@ -5,7 +5,7 @@ connection = pymysql.connect(
     host="localhost",
     user="root",        
     password="aya123",  
-    database="test"   
+    database="test" #the name of our database   
 )
 
 # Create a cursor object
