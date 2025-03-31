@@ -57,9 +57,9 @@ def getContent(articleUrl):
 
     # content = bs.find('div', {'id': 'mw-content-text'}).find('p').get_text()
 
-    #content = ' '.join([div.get_text() for div in bs.find_all('div', {'class': 'hatnote navigation-not-searchable'})])
+    content = ' '.join([div.get_text() for div in bs.find_all('div', {'class': 'hatnote navigation-not-searchable'})])
 
-    content = bs.find('div', {'class': 'shortdescription nomobile noexcerpt noprint searchaux'}).get_text()
+    #content = bs.find('div', {'class': 'shortdescription nomobile noexcerpt noprint searchaux'}).get_text()
     
     if content is None:
         print("No content found")

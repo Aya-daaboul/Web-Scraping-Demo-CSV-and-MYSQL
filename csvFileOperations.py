@@ -7,7 +7,7 @@ csvFile = open('test.csv', 'w', encoding='UTF8', newline='')
 writer = csv.writer(csvFile)  # Create a CSV writer object
 
 # Write the header row containing column names
-writer.writerow(['number HUSSEIN', 'number  WAEL', 'AYA'])
+writer.writerow(['number', 'number + 2', 'number * 2'])
 
 # Loop to generate and write multiple rows of data
 for i in range(7):
