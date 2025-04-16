@@ -57,12 +57,19 @@ def getContent(articleUrl):
 
     # content = bs.find('div', {'id': 'mw-content-text'}).find('p').get_text()
 
-    content = ' '.join([div.get_text() for div in bs.find_all('div', {'class': 'hatnote navigation-not-searchable'})])
-
-    #content = bs.find('div', {'class': 'shortdescription nomobile noexcerpt noprint searchaux'}).get_text()
+    #content = ' '.join([div.get_text() for div in bs.find_all('div', {'class': 'hatnote navigation-not-searchable'})])
     
-    if content is None:
-        print("No content found")
+    content_div = bs.find('div', {'id': 'mw-content-text'})
+    paragraphs = content_div.find_all('p')
+
+    content = ''
+    for para in paragraphs:
+        text = para.get_text().strip()
+        if len(text) > 100:  # Skip very short paras
+            content += text + '\n\n'
+
+    if not content:
+        print("No substantial content found.")
     
 
     # Store the extracted data into the database
